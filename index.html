@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="images/stopwatch.png" />
+		<link rel="stylesheet" href="./styles/style.css" />
+	</head>
+	<body>
+		<!-- <label id="labelCheckbox">Check box to hide Stopwatch, open console</label>
+		<input type="checkbox" id="stopwatchCheck" onclick="handleCheckboxClick()"/> -->
+		<div class="app-header-div">
+			<ul class="app-header app-header-light-theme flex-container flex-start" id="appHeader">
+				<li class="flex-item">
+					<img src="./images/reactjs_logo.png" alt="Reactjs"/>
+				</li>
+				<li class="flex-item">
+					<h1>Stopwatch</h1>
+				</li>
+				<li class="flex-item">
+					<a class="github-button" href="https://github.com/avinashmahlawat" aria-label="Follow @ntkme on GitHub">Follow @avinashmahlawat</a>
+				</li>
+				<li class="flex-item">
+					<a class="github-button" href="https://github.com/avinashmahlawat/node-group-chat" data-icon="octicon-star" aria-label="Star avinashmahlawat/node-group-chat on GitHub">Star</a>
+				</li>
+				<li class="flex-item">
+					<a class="github-button" href="https://github.com/avinashmahlawat/node-group-chat/fork" data-icon="octicon-repo-forked" aria-label="Fork avinashmahlawat/node-group-chat on GitHub">Fork</a>
+				</li>                
+			</ul>
+		</div>
+		<div class="flex-main">
+			<div id="root"></div>
+			<label class="switch">
+				<input type="checkbox"  onclick="changeTheme()">
+				<span class="slider round"></span>
+			</label>			
+		</div>	  
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<!-- Load Babel -->
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<!-- Place this tag in your head or just before your close body tag. -->
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+		<script type="text/babel">
+			const state = { check: false, theme: 'light' };
+			class StopWatch extends React.Component{
+				state = {lapse: 0, running: false }
+				handleRunClick = () => {
+					this.setState(state => {
+						if(state.running){
+							clearInterval(this.timer);
+						}else{
+							const startTime = Date.now() - this.state.lapse;
+							this.timer = setInterval(() => {
+								this.setState({lapse: Date.now() - startTime});
+							})
+						}
+						return {running: !state.running}
+					})
+				}
+				handleClearClick = () => {
+					clearInterval(this.timer);
+					this.setState({lapse: 0, running: false});
+				}
+				componentWillUnmount(){
+					clearInterval(this.timer);
+				}
+				render(){
+					const { running, lapse } = this.state;
+					const buttonStyles = {
+						border: '1px solid #ccc',
+						background: '#fff',
+						fontSize: '2em',
+						padding: 15,
+						margin: 5, 
+						width: 200
+					}
+					return(
+					<>
+					<div style={{textAlign: "center"}}>
+						<label id="lapseLabel" style={{fontSize: '5em', display: 'block'}}>{lapse} ms</label>	
+						<button style={buttonStyles} onClick={this.handleRunClick}>{running ? 'Stop': 'Start'}</button>
+						<button style={buttonStyles} onClick={this.handleClearClick}>Clear</button>
+					</div>
+					</>
+					)
+				}
+			}
+			// for checkbox
+			function handleCheckboxClick(){
+//				console.log(document.getElementById('stopwatchCheck').checked)
+				setState({check: document.getElementById('stopwatchCheck').checked});
+			}
+			function changeTheme(){
+				if(state.theme === 'light'){
+					setState({theme: 'dark'})
+					// document.getElementById('labelCheckbox').classList.add('dark-theme');
+					document.getElementById('lapseLabel').classList.add('dark-theme');
+					document.getElementsByTagName("BODY")[0].classList.add('dark-theme-body');
+					document.getElementById('appHeader').classList.remove('app-header-light-theme');
+					document.getElementById('appHeader').classList.add('app-header-dark-theme');
+				}else{
+					setState({theme: 'light'})
+					// document.getElementById('labelCheckbox').classList.remove('dark-theme');
+					document.getElementById('lapseLabel').classList.remove('dark-theme');
+					document.getElementsByTagName("BODY")[0].classList.remove('dark-theme-body');
+					document.getElementById('appHeader').classList.remove('app-header-dark-theme');
+					document.getElementById('appHeader').classList.add('app-header-light-theme');
+				}
+			}
+			function setState(newState) {
+				Object.assign(state, newState)
+				renderApp();
+			}
+			function renderApp(){
+				console.log(state.check)
+				ReactDOM.render(state.check ? null: <StopWatch />, document.getElementById('root'))
+			}
+			renderApp();
+		</script>
+	</body>
+</html>
