@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<title>Stopwatch</title>
 		<link rel="shortcut icon" href="images/stopwatch.png" />
 		<link rel="stylesheet" href="./styles/style.css" />
 	</head>
@@ -18,20 +19,20 @@
 					<a class="github-button" href="https://github.com/avinashmahlawat" aria-label="Follow @ntkme on GitHub">Follow @avinashmahlawat</a>
 				</li>
 				<li class="flex-item">
-					<a class="github-button" href="https://github.com/avinashmahlawat/node-group-chat" data-icon="octicon-star" aria-label="Star avinashmahlawat/node-group-chat on GitHub">Star</a>
+					<a class="github-button" href="https://github.com/avinashmahlawat/stopwatch" data-icon="octicon-star" aria-label="Star avinashmahlawat/stopwatch on GitHub">Star</a>
 				</li>
 				<li class="flex-item">
-					<a class="github-button" href="https://github.com/avinashmahlawat/node-group-chat/fork" data-icon="octicon-repo-forked" aria-label="Fork avinashmahlawat/node-group-chat on GitHub">Fork</a>
+					<a class="github-button" href="https://github.com/avinashmahlawat/stopwatch/fork" data-icon="octicon-repo-forked" aria-label="Fork avinashmahlawat/stopwatch on GitHub">Fork</a>
 				</li>                
 			</ul>
 		</div>
-		<div class="flex-main">
-			<div id="root"></div>
+		<div class="toggle-switch-container">
 			<label class="switch">
 				<input type="checkbox"  onclick="changeTheme()">
 				<span class="slider round"></span>
 			</label>			
-		</div>	  
+		</div>
+		<div id="root" class="stopwatch-container"></div>
 		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 		<!-- Load Babel -->
